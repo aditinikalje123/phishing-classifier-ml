@@ -1,16 +1,19 @@
 from flask import Flask, render_template, jsonify, request, send_file
 from src.exception import CustomException
 from src.logger import logging as lg
-import os,sys
+import os
+import sys
 
 from src.pipeline.train_pipeline import TrainingPipeline
 from src.pipeline.predict_pipeline import PredictionPipeline
 
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def home():
-    return jsonify("home")
+    return render_template("prediction.html")
 
 
 @app.route("/train")
@@ -22,33 +25,49 @@ def train_route():
         return "Training Completed."
 
     except Exception as e:
-        raise CustomException(e,sys)
+        raise CustomException(e, sys)
 
-@app.route('/predict', methods=['POST', 'GET'])
+
+@app.route("/predict", methods=["POST", "GET"])
 def predict():
-    
-    try:
-        if request.method == 'POST':
-            prediction_pipeline = PredictionPipeline(request)
-            prediction_file_detail = prediction_pipeline.run_pipeline()
 
-            lg.info("prediction completed. Downloading prediction file.")
-            return send_file(prediction_file_detail.prediction_file_path,
-                            download_name= prediction_file_detail.prediction_file_name,
-                            as_attachment= True)
-        
+    try:
+
+        if request.method == "POST":
+
+            prediction_pipeline = PredictionPipeline(request)
+
+            prediction_file_detail = (
+                prediction_pipeline.run_pipeline()
+            )
+
+            lg.info(
+                "Prediction completed. Downloading prediction file."
+            )
+
+            return send_file(
+                prediction_file_detail.prediction_file_path,
+                download_name=prediction_file_detail.prediction_file_name,
+                as_attachment=True
+            )
+
         else:
-            return render_template('prediction.html')
+            return render_template("prediction.html")
 
     except Exception as e:
-        raise CustomException(e,sys)
-    
+        raise CustomException(e, sys)
 
 
 if __name__ == "__main__":
+
     print("========================================")
     print("Phishing Classifier is running!")
     print("URL: http://127.0.0.1:8080/")
     print("Prediction: http://127.0.0.1:8080/predict")
     print("========================================")
-    app.run(host="127.0.0.1", port=8080, debug=True)
+
+    app.run(
+        host="0.0.0.0",
+        port=8080,
+        debug=True
+    )
