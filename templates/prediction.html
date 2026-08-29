@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phishing Detection</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 500px;
+            max-width: 90%;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 20px;
+            font-weight: normal;
+        }
+
+        .file-box {
+            border: 2px dashed #6c4cff;
+            border-radius: 8px;
+            padding: 30px 20px;
+            margin-bottom: 25px;
+        }
+
+        .file-box p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            background: #6c4cff;
+            color: white;
+            border: none;
+            padding: 13px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #5135d9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .note {
+            margin-top: 20px;
+            color: #888;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Phishing Detection</h1>
+
+        <h2>Upload CSV for Prediction</h2>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+
+            <div class="file-box">
+
+                <p>Select your CSV file</p>
+
+                <input
+                    type="file"
+                    name="file"
+                    accept=".csv"
+                    required
+                >
+
+            </div>
+
+            <button type="submit">
+                Upload File
+            </button>
+
+        </form>
+
+        <div class="note">
+            Please upload a CSV file containing the required phishing features.
+        </div>
+
+    </div>
+
+</body>
+</html>
