@@ -89,10 +89,13 @@ Git & GitHub
 
 ## 📁 Project Structure
 
-Phishing-Classifier-ML/
+Phishing-Classifier/
 │
 ├── data/
-│   └── raw_data/
+│   └── phishing_data.csv
+│
+├── notebooks/
+│   └── experiments.ipynb
 │
 ├── src/
 │   ├── components/
